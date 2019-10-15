@@ -18,7 +18,8 @@
         <div class="form-inline my-2 my-lg-0" v-else>
           <input class="form-control mr-sm-2" type="text" v-model="username"/>
           <input class="form-control mr-sm-2" type="password" v-model="password"/>
-          <button class="btn btn-outline-success my-2 my-sm-0" @click="login({username, password})">Login</button>
+          <button class="btn btn-outline-success my-2 my-sm-0"
+          @click="login({username, password})">Login</button>
         </div>
       </li>
       </ul>
@@ -27,19 +28,20 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex';
+
 export default {
-  data () {
+  data() {
     return {
       username: 'username',
-      password: 'password'
-    }
+      password: 'password',
+    };
   },
   computed: {
-    ...mapState(['token', 'error'])
+    ...mapState(['token', 'error']),
   },
   methods: {
-    ...mapActions(['login', 'logout'])
-  }
-}
+    ...mapActions(['login', 'logout']),
+  },
+};
 </script>

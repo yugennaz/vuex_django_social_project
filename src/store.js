@@ -11,6 +11,7 @@ export default new Vuex.Store({
   state: {
     posts: [],
     token: localStorage.getItem('token') || '',
+    user: null,
   },
   mutations: {
     login_success(state, token) {
@@ -22,13 +23,24 @@ export default new Vuex.Store({
     postSet(state, posts) {
       state.posts = posts;
     },
-
+    userSet(state, user) {
+      state.user = user;
+    },
   },
 
   actions: {
-    async getPosts(context) {
-      const response = await axios.get(`${API_URL}/images/`);
+    async getPosts(context, user) {
+      let response;
+      if (user) {
+        response = await axios.get(`${API_URL}/images/?user_id=${user.id}`);
+      } else {
+        response = await axios.get(`${API_URL}/images/`);
+      }
       context.commit('postSet', response.data);
+    },
+    async getUser(context, userId) {
+      const response = await axios.get(`${API_URL}/users/${userId}`);
+      context.commit('userSet', response.data);
     },
     async login(context, credentials) {
       const response = await axios.post(`${API_URL}/auth/`, credentials);
